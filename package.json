@@ -11,7 +11,19 @@
   "license": "ISC",
   "description": "Konix backend intern assesment(Server Side Application to fetch Crypto Transactions of a user)",
   "dependencies": {
+    "axios": "^1.7.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.6.0",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
     "@types/express": "^4.17.21",
-    "express": "^4.19.2"
+    "@types/mongodb": "^4.0.6",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^22.5.1",
+    "@types/node-cron": "^3.0.11",
+    "typescript": "^5.5.4"
   }
 }
