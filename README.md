@@ -1,0 +1,4 @@
+# Konix Backend
+
+- Run loccally
+- 
