@@ -1,4 +1,3 @@
 # Konix Backend
 
-- Run loccally
-- 
+- API Link: https://konix-backend.onrender.com
