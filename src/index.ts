@@ -41,6 +41,29 @@ app.get('/api/transactions/:address', async (req: Request, res: Response) => {
     }
 });
 
+app.get('/api/expenses/:address', async (req: Request, res: Response) => {
+    const { address } = req.params;
+
+    try {
+        const transactionData = await Transaction.findOne({ address });
+        if (!transactionData) return res.status(404).send('Address not found');
+
+        const lastPrice = await Price.findOne().sort({ timestamp: -1 });
+        if (!lastPrice) return res.status(500).send('Price data unavailable');
+
+        const expenses = transactionData?.transactions?.reduce((acc, tx) => {
+            const parsedTx = JSON.parse(tx);
+            const expense = (parseInt(parsedTx.gasUsed) * parseInt(parsedTx.gasPrice)) / 1e18;
+            return acc + expense;
+        }, 0);
+
+        res.json({ expenses, currentEthPrice: lastPrice.price });
+    } catch (error) {
+        res.status(500).send('Error calculating expenses');
+    }
+});
+
+
 cron.schedule('*/10 * * * *', async () => {
     try {
         const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr');
